@@ -36,7 +36,7 @@ export function setMinutes() {
         time = time > 60 ? 60 : time
 
         state.minutes = time
-        state.seconds = 0
+        state.seconds = time >= 60 ? 0 : state.seconds
 
         timer.updateDisplay()
         el.minutesElement.removeAttribute('contenteditable')
