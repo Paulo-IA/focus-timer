@@ -16,6 +16,15 @@ export function registerControls() {
 }
 
 export function setMinutes() {
+    
+    el.minutesElement.addEventListener('click', () => {
+        if (!state.isRunning) {
+            el.minutesElement.setAttribute('contenteditable', true)
+            el.minutesElement.focus()
+        }
+    })
+
+
     el.minutesElement.addEventListener('focus', () => {
         el.minutesElement.textContent = ''
     })
@@ -31,5 +40,28 @@ export function setMinutes() {
 
         timer.updateDisplay()
         el.minutesElement.removeAttribute('contenteditable')
+    })
+}
+
+export function setSeconds() {
+    el.secondsElement.addEventListener('click', () => {
+        if (!state.isRunning) {
+            el.secondsElement.setAttribute('contenteditable', true)
+            el.secondsElement.focus()
+        }
+    })
+
+    el.secondsElement.addEventListener('focus', () => {
+        el.secondsElement.textContent = ''
+    })
+
+    el.secondsElement.addEventListener('blur', (event) => {
+        let time = event.currentTarget.textContent
+        time = time > 60 ? 0 : time
+
+        state.seconds = time
+
+        timer.updateDisplay()
+        el.secondsElement.removeAttribute('contenteditable')
     })
 }
